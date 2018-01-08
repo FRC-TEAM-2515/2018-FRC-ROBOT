@@ -3,3 +3,9 @@
 
 Java Naming Conventions
 https://en.wikipedia.org/wiki/Naming_convention_(programming)#Java
+
+FRC Java Programming Resources
+https://wpilib.screenstepslive.com/s/currentCS/m/java
+
+Pathfinder for FRC Java
+https://github.com/JacisNonsense/Pathfinder/wiki/Pathfinder-for-FRC---Java
