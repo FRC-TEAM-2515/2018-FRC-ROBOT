@@ -20,7 +20,7 @@ Children:
             default: '0'
             name: Output Channel (PWM)
             validators: &id003 [PWMOutput]
-            value: '0'
+            value: '1'
           Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
             name: Inverted, validators: null, value: false}
         Base: Speed Controller
@@ -38,7 +38,7 @@ Children:
             default: '0'
             name: Output Channel (PWM)
             validators: *id003
-            value: '1'
+            value: '2'
           Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
             name: Inverted, validators: null, value: false}
         Base: Speed Controller
@@ -56,7 +56,7 @@ Children:
             default: '0'
             name: Output Channel (PWM)
             validators: *id003
-            value: '2'
+            value: '3'
           Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
             name: Inverted, validators: null, value: false}
         Base: Speed Controller
@@ -74,7 +74,7 @@ Children:
             default: '0'
             name: Output Channel (PWM)
             validators: *id003
-            value: '3'
+            value: '4'
           Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
             name: Inverted, validators: null, value: false}
         Base: Speed Controller
@@ -85,13 +85,13 @@ Children:
           name: Right Rear Motor
           type: PIDOutput
           validators: [RobotDrive4, ChildDropdownSelected]
-          value: Drive Right Rear Motor
+          value: Drive Train Right Rear Motor
         Right Front Motor: !!robotbuilder.data.properties.ChildSelectionProperty
           default: 2
           name: Right Front Motor
           type: PIDOutput
           validators: [RobotDrive4, ChildDropdownSelected]
-          value: Drive Right Front Motor
+          value: Drive Train Right Front Motor
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Maximum Output, validators: null, value: 1.0}
         Left Rear Motor: !!robotbuilder.data.properties.ChildSelectionProperty
@@ -99,7 +99,7 @@ Children:
           name: Left Rear Motor
           type: PIDOutput
           validators: [RobotDrive4, ChildDropdownSelected]
-          value: Drive Left Rear Motor
+          value: Drive Train Left Rear Motor
         Safety Expiration Time: !!robotbuilder.data.properties.DoubleProperty {default: 0.1,
           name: Safety Expiration Time, validators: null, value: 0.1}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
@@ -109,9 +109,9 @@ Children:
           name: Left Front Motor
           type: PIDOutput
           validators: [RobotDrive4, ChildDropdownSelected]
-          value: Drive Left Front Motor
+          value: Drive Train Left Front Motor
       Base: Mecanum Drive
-      Name: Mecanum Drive
+      Name: Robot Drive
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -128,11 +128,21 @@ Children:
         validators: null
         value: []
     Base: Subsystem
-    Name: Drive
+    Name: Drive Train
   Properties: {}
   Base: Subsystems
   Name: Subsystems
-- Children: []
+- Children:
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: [Joystick]
+        value: '0'
+    Base: Joystick
+    Name: Joystick
   Properties: {}
   Base: OI
   Name: Operator Interface
@@ -151,14 +161,36 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
+        default: &id004 []
         name: Parameter presets
         validators: null
-        value: []
+        value: *id004
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Autonomous Command
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Drive Train}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id005 []
+        name: Parameter presets
+        validators: null
+        value: *id005
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Mecanum Drive
   Properties: {}
   Base: Commands
   Name: Commands
