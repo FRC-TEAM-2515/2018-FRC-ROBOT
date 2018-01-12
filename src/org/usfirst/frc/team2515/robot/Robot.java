@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * This is a demo program showing how to use Mecanum control with the RobotDrive
@@ -42,6 +43,9 @@ public class Robot extends IterativeRobot {
 		m_robotDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
 
 		m_stick = new Joystick(kJoystickChannel);
+		
+		CameraServer.getInstance().startAutomaticCapture();
+
 	}
 
 	@Override
