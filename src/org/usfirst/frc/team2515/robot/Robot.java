@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2515.robot;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
@@ -18,14 +19,19 @@ import edu.wpi.first.wpilibj.CameraServer;
  * class.
  */
 public class Robot extends IterativeRobot {
+	// gyro calibration constant, may need to be adjusted;
+	// gyro value of 360 is set to correspond to one full revolution
+	private static final double kVoltsPerDegreePerSecond = 0.0128;
+	
 	private static final int kFrontLeftChannel = 2;
 	private static final int kRearLeftChannel = 3;
 	private static final int kFrontRightChannel = 1;
 	private static final int kRearRightChannel = 0;
-
+	private static final int kGyroPort = 0;
 	private static final int kJoystickChannel = 0;
 
 	private MecanumDrive m_robotDrive;
+	private AnalogGyro m_gyro = new AnalogGyro(kGyroPort);
 	private Joystick m_stick;
 
 	@Override
@@ -43,7 +49,9 @@ public class Robot extends IterativeRobot {
 		m_robotDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
 
 		m_stick = new Joystick(kJoystickChannel);
-		
+
+		m_gyro.setSensitivity(kVoltsPerDegreePerSecond);
+
 		CameraServer.getInstance().startAutomaticCapture();
 
 	}
@@ -53,6 +61,6 @@ public class Robot extends IterativeRobot {
 		// Use the joystick X axis for lateral movement, Y axis for forward
 		// movement, and Z axis for rotation.
 		m_robotDrive.driveCartesian(m_stick.getX(), m_stick.getY(),
-				m_stick.getZ(), 0.0);
+				m_stick.getZ(), m_gyro.getAngle());
 	}
 }
