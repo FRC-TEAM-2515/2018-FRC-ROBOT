@@ -43,8 +43,8 @@ public class Robot extends IterativeRobot {
 
 		// Invert the left side motors.
 		// You may need to change or remove this to match your robot.
-		frontLeft.setInverted(true);
-		rearLeft.setInverted(true);
+		//frontLeft.setInverted(true);
+		//rearLeft.setInverted(true);
 
 		m_robotDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
 
