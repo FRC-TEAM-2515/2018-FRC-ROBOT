@@ -23,10 +23,10 @@ public class Robot extends IterativeRobot {
 	// gyro value of 360 is set to correspond to one full revolution
 	private static final double kVoltsPerDegreePerSecond = 0.0128;
 	
-	private static final int kFrontLeftChannel = 2;
-	private static final int kRearLeftChannel = 3;
-	private static final int kFrontRightChannel = 1;
-	private static final int kRearRightChannel = 0;
+	private static final int kFrontLeftChannel = 0;
+	private static final int kRearLeftChannel = 1;
+	private static final int kFrontRightChannel = 2;
+	private static final int kRearRightChannel = 3;
 	private static final int kGyroPort = 0;
 	private static final int kJoystickChannel = 0;
 
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// Use the joystick X axis for lateral movement, Y axis for forward
 		// movement, and Z axis for rotation.
-		m_robotDrive.driveCartesian(-m_stick.getX(), m_stick.getY(),
+		m_robotDrive.driveCartesian(m_stick.getX(), m_stick.getY(),
 				m_stick.getZ(), 0.0);
 	}
 }
